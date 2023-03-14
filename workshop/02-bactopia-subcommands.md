@@ -257,50 +257,52 @@ create this FOFN. It is important to note, due to Nextflow support of alternate 
 the files you want to include in your FOFN, do not have to be local. You can include files
 that are on each of the three major cloud platforms.
 
-#### Usage
+<details>
+  <summary>View Usage</summary>
 
-```{bash}
-bactopia prepare --help
+  ```{bash}
+  bactopia prepare --help
 
- Usage: bactopia-prepare [OPTIONS]
+   Usage: bactopia-prepare [OPTIONS]
 
- Create a 'file of filenames' (FOFN) of samples to be processed by Bactopia
+   Create a 'file of filenames' (FOFN) of samples to be processed by Bactopia
 
-╭─ Required Options ───────────────────────────────────────────────────────────────────────╮
-│ *  --path  -p  TEXT  Directory where FASTQ files are stored [required]                   │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Matching Options ───────────────────────────────────────────────────────────────────────╮
-│ --assembly-ext     -a  TEXT  Extension of the FASTA assemblies [default: .fna.gz]        │
-│ --fastq-ext        -f  TEXT  Extension of the FASTQs [default: .fastq.gz]                │
-│ --fastq-separator      TEXT  Split FASTQ name on the last occurrence of the separator    │
-│                              [default: _]                                                │
-│ --pe1-pattern          TEXT  Designates difference first set of paired-end reads         │
-│                              [default: [Aa]|[Rr]1|1]                                     │
-│ --pe2-pattern          TEXT  Designates difference second set of paired-end reads        │
-│                              [default: [Bb]|[Rr]2|2]                                     │
-│ --merge                      Flag samples with multiple read sets to be merged by        │
-│                              Bactopia                                                    │
-│ --ont                        Single-end reads should be treated as Oxford Nanopore reads │
-│ --recursive        -r        Directories will be traversed recursively                   │
-│ --prefix               TEXT  Prefix to add to the path                                   │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Sample Information Options ─────────────────────────────────────────────────────────────╮
-│ --metadata             TEXT     Metadata per sample with genome size and species         │
-│                                 information                                              │
-│ --genome-size  -gsize  INTEGER  Genome size to use for all samples                       │
-│ --species      -s      TEXT     Species to use for all samples (If available, can be     │
-│                                 used to determine genome size)                           │
-│ --taxid                TEXT     Use the genome size of the Taxon ID for all samples      │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Additional Options ─────────────────────────────────────────────────────────────────────╮
-│ --examples        Print example usage                                                    │
-│ --verbose         Increase the verbosity of output                                       │
-│ --silent          Only critical errors will be printed                                   │
-│ --version   -V    Show the version and exit.                                             │
-│ --help            Show this message and exit.                                            │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-```
+  ╭─ Required Options ───────────────────────────────────────────────────────────────────────╮
+  │ *  --path  -p  TEXT  Directory where FASTQ files are stored [required]                   │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Matching Options ───────────────────────────────────────────────────────────────────────╮
+  │ --assembly-ext     -a  TEXT  Extension of the FASTA assemblies [default: .fna.gz]        │
+  │ --fastq-ext        -f  TEXT  Extension of the FASTQs [default: .fastq.gz]                │
+  │ --fastq-separator      TEXT  Split FASTQ name on the last occurrence of the separator    │
+  │                              [default: _]                                                │
+  │ --pe1-pattern          TEXT  Designates difference first set of paired-end reads         │
+  │                              [default: [Aa]|[Rr]1|1]                                     │
+  │ --pe2-pattern          TEXT  Designates difference second set of paired-end reads        │
+  │                              [default: [Bb]|[Rr]2|2]                                     │
+  │ --merge                      Flag samples with multiple read sets to be merged by        │
+  │                              Bactopia                                                    │
+  │ --ont                        Single-end reads should be treated as Oxford Nanopore reads │
+  │ --recursive        -r        Directories will be traversed recursively                   │
+  │ --prefix               TEXT  Prefix to add to the path                                   │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Sample Information Options ─────────────────────────────────────────────────────────────╮
+  │ --metadata             TEXT     Metadata per sample with genome size and species         │
+  │                                 information                                              │
+  │ --genome-size  -gsize  INTEGER  Genome size to use for all samples                       │
+  │ --species      -s      TEXT     Species to use for all samples (If available, can be     │
+  │                                 used to determine genome size)                           │
+  │ --taxid                TEXT     Use the genome size of the Taxon ID for all samples      │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Additional Options ─────────────────────────────────────────────────────────────────────╮
+  │ --examples        Print example usage                                                    │
+  │ --verbose         Increase the verbosity of output                                       │
+  │ --silent          Only critical errors will be printed                                   │
+  │ --version   -V    Show the version and exit.                                             │
+  │ --help            Show this message and exit.                                            │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ```
 
+</details>
 
 ### `bactopia summary`
 
@@ -311,67 +313,78 @@ noteboot, and begin some exploratory analysis.
 The `bactopia summary` command is not meant to be a *report* per-say, true reports will follow
 in the future.
 
-#### Usage
+<details>
+  <summary>View Usage</summary>
 
-```{bash}
-bactopia summary --help
+  ```{bash}
+  bactopia summary --help
 
- Usage: bactopia-summary [OPTIONS]
+   Usage: bactopia-summary [OPTIONS]
 
- Generate a summary table from the Bactopia results.
+   Generate a summary table from the Bactopia results.
 
-╭─ Required Options ───────────────────────────────────────────────────────────────────────╮
-│ *  --bactopia  -b  TEXT  Directory where Bactopia results are stored [required]          │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Gold Cutoffs ───────────────────────────────────────────────────────────────────────────╮
-│ --gold-coverage     -gcov      INTEGER  Minimum amount of coverage required for Gold     │
-│                                         status                                           │
-│                                         [default: 100]                                   │
-│ --gold-quality      -gqual     INTEGER  Minimum per-read mean quality score required for │
-│                                         Gold status                                      │
-│                                         [default: 30]                                    │
-│ --gold-read-length  -glen      INTEGER  Minimum mean read length required for Gold       │
-│                                         status                                           │
-│                                         [default: 95]                                    │
-│ --gold-contigs      -gcontigs  INTEGER  Maximum contig count required for Gold status    │
-│                                         [default: 100]                                   │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Silver Cutoffs ─────────────────────────────────────────────────────────────────────────╮
-│ --silver-coverage     -scov      INTEGER  Minimum amount of coverage required for Silver │
-│                                           status                                         │
-│                                           [default: 50]                                  │
-│ --silver-quality      -squal     INTEGER  Minimum per-read mean quality score required   │
-│                                           for Silver status                              │
-│                                           [default: 20]                                  │
-│ --silver-read-length  -slen      INTEGER  Minimum mean read length required for Silver   │
-│                                           status                                         │
-│                                           [default: 75]                                  │
-│ --silver-contigs      -scontigs  INTEGER  Maximum contig count required for Silver       │
-│                                           status                                         │
-│                                           [default: 200]                                 │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Fail Cutoffs ───────────────────────────────────────────────────────────────────────────╮
-│ --min-coverage        -mincov   INTEGER  Minimum amount of coverage required to pass     │
-│                                          [default: 20]                                   │
-│ --min-quality         -minqual  INTEGER  Minimum per-read mean quality score required to │
-│                                          pass                                            │
-│                                          [default: 12]                                   │
-│ --min-read-length     -minlen   INTEGER  Minimum mean read length required to pass       │
-│                                          [default: 49]                                   │
-│ --max-contigs                   INTEGER  Maximum contig count required to pass           │
-│                                          [default: 500]                                  │
-│ --min-assembled-size            INTEGER  Minimum assembled genome size                   │
-│ --max-assembled-size            INTEGER  Maximum assembled genome size                   │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Additional Options ─────────────────────────────────────────────────────────────────────╮
-│ --outdir   -o  PATH  Directory to write output [default: ./]                             │
-│ --prefix   -p  TEXT  Prefix to use for output files [default: bactopia]                  │
-│ --force              Overwrite existing reports                                          │
-│ --verbose            Increase the verbosity of output                                    │
-│ --silent             Only critical errors will be printed                                │
-│ --version  -V        Show the version and exit.                                          │
-│ --help               Show this message and exit.                                         │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
-```
+  ╭─ Required Options ───────────────────────────────────────────────────────────────────────╮
+  │ *  --bactopia  -b  TEXT  Directory where Bactopia results are stored [required]          │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Gold Cutoffs ───────────────────────────────────────────────────────────────────────────╮
+  │ --gold-coverage     -gcov      INTEGER  Minimum amount of coverage required for Gold     │
+  │                                         status                                           │
+  │                                         [default: 100]                                   │
+  │ --gold-quality      -gqual     INTEGER  Minimum per-read mean quality score required for │
+  │                                         Gold status                                      │
+  │                                         [default: 30]                                    │
+  │ --gold-read-length  -glen      INTEGER  Minimum mean read length required for Gold       │
+  │                                         status                                           │
+  │                                         [default: 95]                                    │
+  │ --gold-contigs      -gcontigs  INTEGER  Maximum contig count required for Gold status    │
+  │                                         [default: 100]                                   │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Silver Cutoffs ─────────────────────────────────────────────────────────────────────────╮
+  │ --silver-coverage     -scov      INTEGER  Minimum amount of coverage required for Silver │
+  │                                           status                                         │
+  │                                           [default: 50]                                  │
+  │ --silver-quality      -squal     INTEGER  Minimum per-read mean quality score required   │
+  │                                           for Silver status                              │
+  │                                           [default: 20]                                  │
+  │ --silver-read-length  -slen      INTEGER  Minimum mean read length required for Silver   │
+  │                                           status                                         │
+  │                                           [default: 75]                                  │
+  │ --silver-contigs      -scontigs  INTEGER  Maximum contig count required for Silver       │
+  │                                           status                                         │
+  │                                           [default: 200]                                 │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Fail Cutoffs ───────────────────────────────────────────────────────────────────────────╮
+  │ --min-coverage        -mincov   INTEGER  Minimum amount of coverage required to pass     │
+  │                                          [default: 20]                                   │
+  │ --min-quality         -minqual  INTEGER  Minimum per-read mean quality score required to │
+  │                                          pass                                            │
+  │                                          [default: 12]                                   │
+  │ --min-read-length     -minlen   INTEGER  Minimum mean read length required to pass       │
+  │                                          [default: 49]                                   │
+  │ --max-contigs                   INTEGER  Maximum contig count required to pass           │
+  │                                          [default: 500]                                  │
+  │ --min-assembled-size            INTEGER  Minimum assembled genome size                   │
+  │ --max-assembled-size            INTEGER  Maximum assembled genome size                   │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ╭─ Additional Options ─────────────────────────────────────────────────────────────────────╮
+  │ --outdir   -o  PATH  Directory to write output [default: ./]                             │
+  │ --prefix   -p  TEXT  Prefix to use for output files [default: bactopia]                  │
+  │ --force              Overwrite existing reports                                          │
+  │ --verbose            Increase the verbosity of output                                    │
+  │ --silent             Only critical errors will be printed                                │
+  │ --version  -V        Show the version and exit.                                          │
+  │ --help               Show this message and exit.                                         │
+  ╰──────────────────────────────────────────────────────────────────────────────────────────╯
+  ```
+
+</details>
 
 We'll circle back to this one.
+
+## Wrapping Up
+
+Hopefully, after playing with the Bactopia subcommands, you can start thinking about ways you
+can put them to use. 
+
+For now let's continue our adventure by heading to [Bactopia Pipeline](/workshop/03-bactopia.md)
+
