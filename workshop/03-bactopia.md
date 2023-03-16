@@ -94,7 +94,9 @@ Here are the parameters to handle all this:
   --check_samples                     [boolean] Validate the input FOFN provided by --samples
 ```
 
-Time permitting we'll go through each one of these methods.
+Time permitting we'll go through each one of these methods. To do this, we'll
+be using data from [bactopia-tests](https://github.com/bactopia/bactopia-tests).
+These are super small, and should hopefully complete quickly.
 
 ### Paired-end Illumina sample
 
@@ -105,10 +107,11 @@ Let's give it a try:
 
 ```{bash}
 bactopia \
-  --R1 <FASTQ1> \
-  --R2 <FASTQ2> \
-  --sample <SAMPLE_NAME> \
-  --genome_size 2000000 \
+  --R1 https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702_R1.fastq.gz \
+  --R2 https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702_R2.fastq.gz \
+  --sample test-pe \
+  --run_name test-pe \
+  --genome_size 358000 \
   -profile singularity
 ```
 
@@ -122,9 +125,10 @@ please include an expected genome size using `--genome_size`.
 
 ```{bash}
 bactopia \
-  --SE <FASTQ1> \
-  --sample <SAMPLE_NAME> \
-  --genome_size 2000000 \
+  --SE https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702SE.fastq.gz \
+  --sample test-se \
+  --run_name test-se \
+  --genome_size 358000 \
   -profile singularity
 ```
 
@@ -139,9 +143,11 @@ continue to provide a genome size (`--genome_size`).
 
 ```{bash}
 bactopia \
-  --SE <FASTQ1> \
-  --sample <SAMPLE_NAME> \
-  --genome_size 2000000 \
+  --SE https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/nanopore/ERR3772599.fastq.gz \
+  --ont \
+  --sample test-ont \
+  --run_name test-ont \
+  --genome_size 358000 \
   -profile singularity
 ```
 
@@ -166,12 +172,13 @@ for polishing the ONT assembly.
 
 ```{bash}
 bactopia \
-  --R1 <FASTQ1> \
-  --R2 <FASTQ2> \
-  --SE <ONT> \
+  --R1 https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702_R1.fastq.gz \
+  --R2 https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702_R2.fastq.gz \
+  --SE https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/nanopore/ERR3772599.fastq.gz \
   --short_polish \
-  --sample <SAMPLE_NAME> \
-  --genome_size 2000000 \
+  --sample test-short-polish \
+  --run_name test-short-polish \
+  --genome_size 358000 \
   -profile singularity
 ```
 
@@ -182,12 +189,13 @@ will assemble with the Illumina reads, then try to bridge contigs using the ONT 
 
 ```{bash}
 bactopia \
-  --R1 <FASTQ1> \
-  --R2 <FASTQ2> \
-  --SE <ONT> \
+  --R1 https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702_R1.fastq.gz \
+  --R2 https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/illumina/SRR2838702_R2.fastq.gz \
+  --SE https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/nanopore/ERR3772599.fastq.gz \
   --hybrid \
-  --sample <SAMPLE_NAME> \
-  --genome_size 2000000 \
+  --sample test-hybrid \
+  --run_name test-hybrid \
+  --genome_size 358000 \
   -profile singularity
 ```
 
@@ -211,9 +219,10 @@ at the assembly step.
 
 ```{bash}
 bactopia \
-  --assembly <ASSEMBLY> \
-  --sample <SAMPLE_NAME> \
-  --genome_size 2000000 \
+  --assembly https://github.com/bactopia/bactopia-tests/raw/main/data/species/portiera/genome/GCF_000292685.fna.gz \
+  --sample test-assembly \
+  --run_name test-assembly \
+  --genome_size 358000 \
   -profile singularity
 ```
 
@@ -221,9 +230,64 @@ There you go, now you can include assemblies in your studies.
 
 ### Process an accession
 
-THe last way to process a single sample, accessions from public databases.
+The last way to process a single sample, is to use an accession from public databases.
 
+```{bash}
+bactopia \
+  --accession SRX1390609 \
+  --sample test-accession \
+  --run_name test-accession \
+  --genome_size 358000 \
+  -profile singularity
+```
 
 ## Processing Multiple Samples
+
 ### Process samples with a FOFN (`bactopia prepare`)
+
+For the purposes of this workshop, we're going to reuse the FASTQs we allready have
+to create a FOFN with `bactopia prepare`. But by all means if you have your own
+data, give it a go!
+
+```{bash}
+bactopia prepare \
+    --path bactopia/bactopia-samples/ \
+    --recursive \
+    --assembly-ext . \
+    --genome-size 358000 --ont > samples.txt
+    
+# Run the samples using --samples
+bactopia \
+  --samples samples.txt \
+  --run_name test-fofn \
+  -profile singularity
+```
+
 ### Process samples with accessions (`bactopia search`)
+
+Sometimes you might want to include public data in your analysis,
+for this you can generate a list of accessions using `bactopia search`.
+Once your search completes, you will have a file that ends in
+`*-accessions.txt` this file can be passed to Bactopia using the
+`--accessions` parameter. Let's give it a go!
+
+```{bash}
+# Grab a few Mycoplasmoides genitalium  (taxid 2097) genomes
+# using bactopia search
+bactopia search --query 2097 --prefix multiple --limit 5
+
+# Run the samples using --accessions
+bactopia \
+  --accessions multiple-accessions.txt \
+  --run_name test-accessions \
+  --genome_size 358000 \
+  -profile singularity
+```
+
+## Wrap Up!
+
+Hopefully you were able to successfully run each command! By now, I
+hope you can appreciate there are many ways to process samples using
+Bactopia.
+
+Now, it's time to head on over to [Bactopia Tools](/workshop/04-bactopia-tools.md)!
