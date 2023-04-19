@@ -42,7 +42,7 @@ Let's give it a try:
 ```{bash}
 mkdir bactopia-workshop
 cd bactopia-workshop
-bactopia -profile test,singlarity
+bactopia -profile test,singularity
 ```
 
 Notice here, Nextflow allows you to provide multiple profiles when separated by a comma. So,
